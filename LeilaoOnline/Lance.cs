@@ -2,10 +2,10 @@
 {
     public class Lance
     {
-        public Interessada Cliente { get; }
+        public Licitante Cliente { get; }
         public double Valor { get; }
 
-        public Lance(Interessada cliente, double valor)
+        public Lance(Licitante cliente, double valor)
         {
             Cliente = cliente;
             Valor = valor;

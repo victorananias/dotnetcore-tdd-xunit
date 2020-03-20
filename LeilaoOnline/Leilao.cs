@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 
 namespace LeilaoOnline
 {
@@ -7,6 +8,7 @@ namespace LeilaoOnline
         private IList<Lance> _lances;
         public IEnumerable<Lance> Lances => _lances;
         public string Peca { get; }
+        public Lance Ganhador { get; set; }
 
         public Leilao(string peca)
         {
@@ -14,19 +16,19 @@ namespace LeilaoOnline
             _lances = new List<Lance>();
         }
 
-        public void RecebeLance(Interessada cliente, double valor)
+        public void ReceberLance(Licitante cliente, double valor)
         {
             _lances.Add(new Lance(cliente, valor));
         }
 
-        public void IniciaPregao()
+        public void Iniciar()
         {
 
         }
 
-        public void TerminaPregao()
+        public void Terminar()
         {
-
+            Ganhador = _lances.OrderBy(lance => lance.Valor).Last();
         }
     }
 }

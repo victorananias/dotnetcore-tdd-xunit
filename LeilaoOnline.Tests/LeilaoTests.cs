@@ -5,43 +5,42 @@ namespace LeilaoOnline.Tests
 {
     public class LeilaoTests
     {
-        [Fact]
-        public void LeilaoComVariosLances()
+        [Theory]
+        [InlineData(1200, new double[] {800, 900, 1000, 1200})]
+        [InlineData(1000, new double[] {900, 800, 100, 1000})]
+        [InlineData(800, new double[] {800})]
+        public void LeilaoComVariosLances(double valorEsperado, double[] lances)
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            var licitante1 = new Licitante("Licitante Um", leilao);
-            var licitante2 = new Licitante("Licitante Dois", leilao);
-            
+            var licitante = new Licitante("Licitante Um", leilao);
+
             // Act
-            leilao.ReceberLance(licitante1, 800);
-            leilao.ReceberLance(licitante2, 1000);
-            leilao.ReceberLance(licitante1, 900);
-            
+            foreach (var lance in lances)
+            {
+                leilao.ReceberLance(licitante, lance);
+            }
+
             leilao.Terminar();
-            
+
             // Assert
-            var valorEsperado = 1000;
             var valorRecebido = leilao.Ganhador.Valor;
-            
             Assert.Equal(valorRecebido, valorRecebido);
         }
-        
+
         [Fact]
-        public void LeilaoComUmLance()
+        public void LeilaoSemLances()
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            var licitante1 = new Licitante("Licitante Um", leilao);
-            
+
             // Act
-            leilao.ReceberLance(licitante1, 800);
             leilao.Terminar();
-            
+
             // Assert
-            var valorEsperado = 800;
+            var valorEsperado = 0;
             var valorRecebido = leilao.Ganhador.Valor;
-            
+
             Assert.Equal(valorRecebido, valorRecebido);
         }
     }

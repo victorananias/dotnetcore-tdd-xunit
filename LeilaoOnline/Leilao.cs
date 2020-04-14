@@ -28,7 +28,7 @@ namespace LeilaoOnline
 
         public void Terminar()
         {
-            Ganhador = _lances.OrderBy(lance => lance.Valor).Last();
+            Ganhador = _lances.DefaultIfEmpty(new Lance(null, 0)).OrderBy(lance => lance.Valor).LastOrDefault();
         }
     }
 }

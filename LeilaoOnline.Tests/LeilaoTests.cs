@@ -9,7 +9,7 @@ namespace LeilaoOnline.Tests
         [InlineData(1200, new double[] {800, 900, 1000, 1200})]
         [InlineData(1000, new double[] {900, 800, 100, 1000})]
         [InlineData(800, new double[] {800})]
-        public void LeilaoComVariosLances(double valorEsperado, double[] lances)
+        public void TerminaPregao_RetornaMaiorValor_QuandoLeilaoComPeloMenosUmLance(double valorEsperado, double[] lances)
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
@@ -25,11 +25,11 @@ namespace LeilaoOnline.Tests
 
             // Assert
             var valorRecebido = leilao.Ganhador.Valor;
-            Assert.Equal(valorRecebido, valorRecebido);
+            Assert.Equal(valorEsperado, valorRecebido);
         }
 
         [Fact]
-        public void LeilaoSemLances()
+        public void TerminaPregao_RetornaZero_QuandoLeilaoSemLances()
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
@@ -41,7 +41,7 @@ namespace LeilaoOnline.Tests
             var valorEsperado = 0;
             var valorRecebido = leilao.Ganhador.Valor;
 
-            Assert.Equal(valorRecebido, valorRecebido);
+            Assert.Equal(valorEsperado, valorRecebido);
         }
     }
 }

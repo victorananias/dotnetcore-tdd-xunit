@@ -20,3 +20,5 @@ https://xunit.github.io/docs/getting-started/netfx/visual-studio#write-first-the
 https://docs.microsoft.com/en-us/dotnet/core/testing/unit-testing-best-practices#best-practices
 https://docs.microsoft.com/pt-br/dotnet/standard/modern-web-apps-azure-architecture/test-asp-net-core-mvc-apps#test-naming
 
+### [MemberData] e [ClassData]
+https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/

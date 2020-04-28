@@ -15,6 +15,8 @@ namespace LeilaoOnline.Tests
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
             var licitante = new Licitante("Licitante Um", leilao);
+            
+            leilao.Iniciar();
 
             // Act
             foreach (var lance in lances)
@@ -34,7 +36,7 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-
+            
             // Act
             leilao.Terminar();
 
@@ -53,6 +55,8 @@ namespace LeilaoOnline.Tests
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
             var licitante = new Licitante("Licitante Um", leilao);
+            
+            leilao.Iniciar();
             
             foreach (var lance in lances)
             {

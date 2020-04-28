@@ -5,6 +5,7 @@ namespace LeilaoOnline
 {
     public enum EstadoLeilao
     {
+        NaoIniciado,
         EmAndamento,
         Finalizado
     }
@@ -21,12 +22,12 @@ namespace LeilaoOnline
         {
             Peca = peca;
             _lances = new List<Lance>();
-            Estado = EstadoLeilao.EmAndamento;
+            Estado = EstadoLeilao.NaoIniciado;
         }
 
         public void ReceberLance(Licitante cliente, double valor)
         {
-            if (Estado == EstadoLeilao.Finalizado)
+            if (Estado != EstadoLeilao.EmAndamento)
             {
                 return;
             }
@@ -36,7 +37,7 @@ namespace LeilaoOnline
 
         public void Iniciar()
         {
-
+            Estado = EstadoLeilao.EmAndamento;
         }
 
         public void Terminar()

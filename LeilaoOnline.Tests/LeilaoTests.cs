@@ -14,14 +14,19 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            var licitante = new Licitante("Licitante Um", leilao);
+            var licitante1 = new Licitante("Licitante Um", leilao);
+            var licitante2 = new Licitante("Licitante Dois", leilao);
             
             leilao.Iniciar();
-
-            // Act
-            foreach (var lance in lances)
+            for (var i = 0; i < lances.Length; i++)
             {
-                leilao.ReceberLance(licitante, lance);
+                if (i % 2 == 0)
+                {
+                    leilao.ReceberLance(licitante1, lances[i]);
+                    continue;
+                }
+                
+                leilao.ReceberLance(licitante2, lances[i]);
             }
 
             leilao.Terminar();
@@ -54,21 +59,54 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            var licitante = new Licitante("Licitante Um", leilao);
+            var licitante1 = new Licitante("Licitante Um", leilao);
+            var licitante2 = new Licitante("Licitante Dois", leilao);
             
             leilao.Iniciar();
-            
-            foreach (var lance in lances)
+            for (var i = 0; i < lances.Length; i++)
             {
-                leilao.ReceberLance(licitante, lance);
+                if (i % 2 == 0)
+                {
+                    leilao.ReceberLance(licitante1, lances[i]);
+                    continue;
+                }
+                
+                leilao.ReceberLance(licitante2, lances[i]);
             }
 
             leilao.Terminar();
 
             // Act
+            
+            if (lances.Length % 2 == 0)
+            {
+                leilao.ReceberLance(licitante1, 5000);
+            }
+            else
+            {
+                leilao.ReceberLance(licitante2, 5000);
+            }
+
+            // Assert
+            var qtdRecebida = leilao.Lances.Count();
+            Assert.Equal(qtdEsperada, qtdRecebida);
+        }
+        
+        [Fact]
+        public void ReceberLance_NaoPermiteNovoLance_QuandoOLicitanteTentaDarLancesConsecutivos()
+        {
+            // Arrange
+            var leilao = new Leilao("Pintura do Van Gogh");
+            var licitante = new Licitante("Licitante Um", leilao);
+            
+            leilao.Iniciar();
+            leilao.ReceberLance(licitante, 100);
+
+            // Act
             leilao.ReceberLance(licitante, 5000);
 
             // Assert
+            const int qtdEsperada = 1;
             var qtdRecebida = leilao.Lances.Count();
             Assert.Equal(qtdEsperada, qtdRecebida);
         }

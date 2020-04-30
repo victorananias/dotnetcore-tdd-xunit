@@ -13,6 +13,7 @@ namespace LeilaoOnline
     public class Leilao
     {
         private IList<Lance> _lances;
+        private Licitante _ultimoLicitante;
         public IEnumerable<Lance> Lances => _lances;
         public string Peca { get; }
         public Lance Ganhador { get; set; }
@@ -25,14 +26,20 @@ namespace LeilaoOnline
             Estado = EstadoLeilao.NaoIniciado;
         }
 
-        public void ReceberLance(Licitante cliente, double valor)
+        public void ReceberLance(Licitante licitante, double valor)
         {
             if (Estado != EstadoLeilao.EmAndamento)
             {
                 return;
             }
             
-            _lances.Add(new Lance(cliente, valor));
+            if (_ultimoLicitante == licitante)
+            {
+                return;
+            }
+            
+            _lances.Add(new Lance(licitante, valor));
+            _ultimoLicitante = licitante;
         }
 
         public void Iniciar()

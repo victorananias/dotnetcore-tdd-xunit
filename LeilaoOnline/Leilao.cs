@@ -9,7 +9,7 @@ namespace LeilaoOnline
         EmAndamento,
         Finalizado
     }
-    
+
     public class Leilao
     {
         private IList<Lance> _lances;
@@ -28,18 +28,18 @@ namespace LeilaoOnline
 
         public void ReceberLance(Licitante licitante, double valor)
         {
-            if (Estado != EstadoLeilao.EmAndamento)
+            if (!LanceAceito(licitante))
             {
                 return;
             }
-            
-            if (_ultimoLicitante == licitante)
-            {
-                return;
-            }
-            
+
             _lances.Add(new Lance(licitante, valor));
             _ultimoLicitante = licitante;
+        }
+
+        private bool LanceAceito(Licitante licitante)
+        {
+            return Estado == EstadoLeilao.EmAndamento && _ultimoLicitante != licitante;
         }
 
         public void Iniciar()

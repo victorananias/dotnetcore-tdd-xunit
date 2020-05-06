@@ -58,17 +58,14 @@ namespace LeilaoOnline.Tests
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
             
-            try
+            // Assert
+            var exception = Assert.Throws<InvalidOperationException>(() =>
             {
-                // Act
                 leilao.Terminar();
-                Assert.True(false);
-            }
-            catch (Exception e)
-            {
-                // Assert
-                Assert.IsType<InvalidOperationException>(e);
-            }
+            });
+
+            const string valorEsperado = "Não é possível terminar o leilão sem antes iniciá-lo.";
+            Assert.Equal(valorEsperado, exception.Message);
         }
         
         [Theory]

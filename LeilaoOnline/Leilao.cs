@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace LeilaoOnline
@@ -49,6 +50,11 @@ namespace LeilaoOnline
 
         public void Terminar()
         {
+            if (Estado != EstadoLeilao.EmAndamento)
+            {
+                throw new InvalidOperationException("Não é possível terminar o leilão sem antes iniciá-lo.");
+            }
+            
             Estado = EstadoLeilao.Finalizado;
             Ganhador = _lances.DefaultIfEmpty(new Lance(null, 0)).OrderBy(lance => lance.Valor).LastOrDefault();
         }

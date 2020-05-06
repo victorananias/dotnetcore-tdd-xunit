@@ -22,3 +22,12 @@ https://docs.microsoft.com/pt-br/dotnet/standard/modern-web-apps-azure-architect
 
 ### [MemberData] e [ClassData]
 https://andrewlock.net/creating-parameterised-tests-in-xunit-with-inlinedata-classdata-and-memberdata/
+
+### Testes de regressão
+http://softwaretestingfundamentals.com/regression-testing/
+
+### Intro a Métodos Ágeis na Alura
+https://cursos.alura.com.br/course/introducao-aos-metodos-ageis
+
+### Testes de métodos privados
+https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-best-practices#validate-private-methods-by-unit-testing-public-methods

@@ -51,6 +51,25 @@ namespace LeilaoOnline.Tests
 
             Assert.Equal(valorEsperado, valorRecebido);
         }
+
+        [Fact]
+        public void TerminaPregao_LancaInvalidOperationException_QuandoLeilaoNaoIniciado()
+        {
+            // Arrange
+            var leilao = new Leilao("Pintura do Van Gogh");
+            
+            try
+            {
+                // Act
+                leilao.Terminar();
+                Assert.True(false);
+            }
+            catch (Exception e)
+            {
+                // Assert
+                Assert.IsType<InvalidOperationException>(e);
+            }
+        }
         
         [Theory]
         [InlineData(2, new double[] {800, 900})]

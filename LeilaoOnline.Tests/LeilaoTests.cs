@@ -42,6 +42,7 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
+            leilao.Iniciar();
 
             // Act
             leilao.Terminar();

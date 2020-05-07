@@ -10,13 +10,14 @@ namespace LeilaoOnline.Tests
         [InlineData(1200, new double[] {800, 900, 1000, 1200})]
         [InlineData(1000, new double[] {900, 800, 100, 1000})]
         [InlineData(800, new double[] {800})]
-        public void TerminaPregao_RetornaMaiorValor_QuandoLeilaoComPeloMenosUmLance(double valorEsperado, double[] lances)
+        public void TerminaPregao_RetornaMaiorValor_QuandoLeilaoComPeloMenosUmLance(double valorEsperado,
+            double[] lances)
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
             var licitante1 = new Licitante("Licitante Um", leilao);
             var licitante2 = new Licitante("Licitante Dois", leilao);
-            
+
             leilao.Iniciar();
             for (var i = 0; i < lances.Length; i++)
             {
@@ -25,7 +26,7 @@ namespace LeilaoOnline.Tests
                     leilao.ReceberLance(licitante1, lances[i]);
                     continue;
                 }
-                
+
                 leilao.ReceberLance(licitante2, lances[i]);
             }
 
@@ -41,7 +42,7 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            
+
             // Act
             leilao.Terminar();
 
@@ -57,17 +58,14 @@ namespace LeilaoOnline.Tests
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
-            
+
             // Assert
-            var exception = Assert.Throws<InvalidOperationException>(() =>
-            {
-                leilao.Terminar();
-            });
+            var exception = Assert.Throws<InvalidOperationException>(() => { leilao.Terminar(); });
 
             const string valorEsperado = "Não é possível terminar o leilão sem antes iniciá-lo.";
             Assert.Equal(valorEsperado, exception.Message);
         }
-        
+
         [Theory]
         [InlineData(2, new double[] {800, 900})]
         [InlineData(4, new double[] {900, 800, 100, 1000})]
@@ -77,7 +75,7 @@ namespace LeilaoOnline.Tests
             var leilao = new Leilao("Pintura do Van Gogh");
             var licitante1 = new Licitante("Licitante Um", leilao);
             var licitante2 = new Licitante("Licitante Dois", leilao);
-            
+
             leilao.Iniciar();
             for (var i = 0; i < lances.Length; i++)
             {
@@ -86,14 +84,14 @@ namespace LeilaoOnline.Tests
                     leilao.ReceberLance(licitante1, lances[i]);
                     continue;
                 }
-                
+
                 leilao.ReceberLance(licitante2, lances[i]);
             }
 
             leilao.Terminar();
 
             // Act
-            
+
             if (lances.Length % 2 == 0)
             {
                 leilao.ReceberLance(licitante1, 5000);
@@ -107,14 +105,14 @@ namespace LeilaoOnline.Tests
             var qtdRecebida = leilao.Lances.Count();
             Assert.Equal(qtdEsperada, qtdRecebida);
         }
-        
+
         [Fact]
         public void ReceberLance_NaoPermiteNovoLance_QuandoOLicitanteTentaDarLancesConsecutivos()
         {
             // Arrange
             var leilao = new Leilao("Pintura do Van Gogh");
             var licitante = new Licitante("Licitante Um", leilao);
-            
+
             leilao.Iniciar();
             leilao.ReceberLance(licitante, 100);
 
@@ -125,6 +123,16 @@ namespace LeilaoOnline.Tests
             const int qtdEsperada = 1;
             var qtdRecebida = leilao.Lances.Count();
             Assert.Equal(qtdEsperada, qtdRecebida);
+        }
+
+        [Fact]
+        public void Constructor_LancaArgumentEexception_QuandoLanceForNegativo()
+        {
+            // Arrange
+            var valorNegativo = -100;
+
+            // Assert
+            Assert.Throws<ArgumentException>(() => new Lance(null, -100));
         }
     }
 }

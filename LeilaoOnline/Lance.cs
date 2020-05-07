@@ -1,4 +1,6 @@
-﻿namespace LeilaoOnline
+﻿using System;
+
+namespace LeilaoOnline
 {
     public class Lance
     {
@@ -7,6 +9,10 @@
 
         public Lance(Licitante cliente, double valor)
         {
+            if (valor < 0)
+            {
+                throw new ArgumentException("Valor do lance deve ser igual ou maior a zero.");
+            }
             Cliente = cliente;
             Valor = valor;
         }

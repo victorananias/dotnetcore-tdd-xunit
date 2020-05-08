@@ -31,3 +31,9 @@ https://cursos.alura.com.br/course/introducao-aos-metodos-ageis
 
 ### Testes de métodos privados
 https://docs.microsoft.com/pt-br/dotnet/core/testing/unit-testing-best-practices#validate-private-methods-by-unit-testing-public-methods
+
+### Diferenças entre os frameworks ao testar exceções
+https://xunit.github.io/docs/comparisons
+
+### Martin Fowler - cobertura de código
+https://www.martinfowler.com/bliki/TestCoverage.html

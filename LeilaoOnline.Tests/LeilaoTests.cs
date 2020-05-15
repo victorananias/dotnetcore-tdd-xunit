@@ -135,5 +135,27 @@ namespace LeilaoOnline.Tests
             // Assert
             Assert.Throws<ArgumentException>(() => new Lance(null, -100));
         }
+
+        [Fact]
+        public void Terminar_Retorna_ValorSuperiorMaisProximo_DadoLeilaoNessaModalidade()
+        {
+            // Arrange
+            var leilao = new Leilao("Pintura do Van Gogh", 150);
+            var licitante = new Licitante("Licitante Um", leilao);
+            var licitante2 = new Licitante("Licitante Dois", leilao);
+
+            leilao.Iniciar();
+
+            // Act
+            leilao.ReceberLance(licitante, 100);
+            leilao.ReceberLance(licitante2, 200);
+            leilao.ReceberLance(licitante, 5000);
+            leilao.Terminar();
+
+            // Assert
+            const double valorEsperado = 200;
+            var valorRecebido = leilao.Ganhador.Valor;
+            Assert.Equal(valorEsperado, valorRecebido);
+        }
     }
 }

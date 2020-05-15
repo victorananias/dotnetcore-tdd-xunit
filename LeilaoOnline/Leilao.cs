@@ -19,12 +19,14 @@ namespace LeilaoOnline
         public string Peca { get; }
         public Lance Ganhador { get; set; }
         public EstadoLeilao Estado { get; private set; }
+        public double ValorDestino { get; }
 
-        public Leilao(string peca)
+        public Leilao(string peca, double valorDestino = 0)
         {
             Peca = peca;
             _lances = new List<Lance>();
             Estado = EstadoLeilao.NaoIniciado;
+            ValorDestino = valorDestino;
         }
 
         public void ReceberLance(Licitante licitante, double valor)
@@ -54,9 +56,19 @@ namespace LeilaoOnline
             {
                 throw new InvalidOperationException("Não é possível terminar o leilão sem antes iniciá-lo.");
             }
-            
+
             Estado = EstadoLeilao.Finalizado;
-            Ganhador = _lances.DefaultIfEmpty(new Lance(null, 0)).OrderBy(lance => lance.Valor).LastOrDefault();
+
+            if (ValorDestino <= 0)
+            {
+                Ganhador = _lances.DefaultIfEmpty(new Lance(null, 0)).OrderBy(lance => lance.Valor).LastOrDefault();
+                return;
+            }
+
+            Ganhador = _lances.Where(lance => lance.Valor >= ValorDestino)
+                .DefaultIfEmpty(new Lance(null, 0))
+                .OrderBy(lance => lance.Valor)
+                .FirstOrDefault();
         }
     }
 }

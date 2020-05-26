@@ -15,18 +15,18 @@ namespace LeilaoOnline
     {
         private IList<Lance> _lances;
         private Licitante _ultimoLicitante;
+        private IModalidadeAvaliacao _modalidade;
         public IEnumerable<Lance> Lances => _lances;
         public string Peca { get; }
         public Lance Ganhador { get; set; }
         public EstadoLeilao Estado { get; private set; }
-        public double ValorDestino { get; }
 
-        public Leilao(string peca, double valorDestino = 0)
+        public Leilao(string peca, IModalidadeAvaliacao modalidade)
         {
             Peca = peca;
             _lances = new List<Lance>();
             Estado = EstadoLeilao.NaoIniciado;
-            ValorDestino = valorDestino;
+            _modalidade = modalidade;
         }
 
         public void ReceberLance(Licitante licitante, double valor)
@@ -59,16 +59,7 @@ namespace LeilaoOnline
 
             Estado = EstadoLeilao.Finalizado;
 
-            if (ValorDestino <= 0)
-            {
-                Ganhador = _lances.DefaultIfEmpty(new Lance(null, 0)).OrderBy(lance => lance.Valor).LastOrDefault();
-                return;
-            }
-
-            Ganhador = _lances.Where(lance => lance.Valor >= ValorDestino)
-                .DefaultIfEmpty(new Lance(null, 0))
-                .OrderBy(lance => lance.Valor)
-                .FirstOrDefault();
+            _modalidade.Avaliar(this);
         }
     }
 }

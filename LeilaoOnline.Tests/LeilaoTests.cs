@@ -14,7 +14,8 @@ namespace LeilaoOnline.Tests
             double[] lances)
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh");
+            var modalidade = new MaiorValor();
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
             var licitante1 = new Licitante("Licitante Um", leilao);
             var licitante2 = new Licitante("Licitante Dois", leilao);
 
@@ -41,7 +42,8 @@ namespace LeilaoOnline.Tests
         public void TerminaPregao_RetornaZero_QuandoLeilaoSemLances()
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh");
+            var modalidade = new MaiorValor();
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
             leilao.Iniciar();
 
             // Act
@@ -58,7 +60,8 @@ namespace LeilaoOnline.Tests
         public void TerminaPregao_LancaInvalidOperationException_QuandoLeilaoNaoIniciado()
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh");
+            var modalidade = new MaiorValor();
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
 
             // Assert
             var exception = Assert.Throws<InvalidOperationException>(() => { leilao.Terminar(); });
@@ -73,7 +76,8 @@ namespace LeilaoOnline.Tests
         public void ReceberLance_NaoPermiteNovosLances_QuandoLeilaoFinalizado(double qtdEsperada, double[] lances)
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh");
+            var modalidade = new MaiorValor();
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
             var licitante1 = new Licitante("Licitante Um", leilao);
             var licitante2 = new Licitante("Licitante Dois", leilao);
 
@@ -111,7 +115,8 @@ namespace LeilaoOnline.Tests
         public void ReceberLance_NaoPermiteNovoLance_QuandoOLicitanteTentaDarLancesConsecutivos()
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh");
+            var modalidade = new MaiorValor();
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
             var licitante = new Licitante("Licitante Um", leilao);
 
             leilao.Iniciar();
@@ -140,7 +145,8 @@ namespace LeilaoOnline.Tests
         public void Terminar_Retorna_ValorSuperiorMaisProximo_DadoLeilaoNessaModalidade()
         {
             // Arrange
-            var leilao = new Leilao("Pintura do Van Gogh", 150);
+            var modalidade = new OfertaSuperiorMaisProxima(150);
+            var leilao = new Leilao("Pintura do Van Gogh", modalidade);
             var licitante = new Licitante("Licitante Um", leilao);
             var licitante2 = new Licitante("Licitante Dois", leilao);
 

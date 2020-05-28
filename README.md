@@ -37,3 +37,9 @@ https://xunit.github.io/docs/comparisons
 
 ### Martin Fowler - cobertura de código
 https://www.martinfowler.com/bliki/TestCoverage.html
+
+### Design OO, Interfaces e Implementação
+https://en.wikipedia.org/wiki/Object-oriented_design
+
+### Princípios de Design: SOLID
+https://en.wikipedia.org/wiki/SOLID
